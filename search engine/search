@@ -1,0 +1,10 @@
+import pandas as pd
+import re
+
+df_full = pd.read_csv('/data/full_clear.csv')
+def searchbyname(enteredname, df=full_df.clear_name):
+  a = []
+  for i in range(len(df)):
+    if df[i] == enteredname:
+      a.append(i)
+  return a
