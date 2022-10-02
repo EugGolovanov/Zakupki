@@ -106,12 +106,13 @@ def main():
         search_results = utils.get_search_results(search_request, data, index=index, bert=bert_cls, tokenizer=tokenizer, cb_model=cb_model,
                                                   min_price=min_price, max_price=max_price,
                                                   inn=inn, okpd2_code=okpd2_code, countries=countries, best=True)
+        figs_expander = st.expander("Анализ рынка")
         fig = get_fig_price(search_results['price'])
         if fig is not None:
-            st.pyplot(fig)
+            figs_expander.pyplot(fig)
         fig = get_fig_tops(search_results['inn'])
         if fig is not None:
-            st.pyplot(fig)
+            figs_expander.pyplot(fig)
         search_results.drop(['okpd2_value', 'text', 'string_dist', 'same_okpd2_code'], axis=1, inplace=True)
         gb_main = st_agg.GridOptionsBuilder.from_dataframe(search_results)
         gb_main.configure_default_column(
