@@ -27,4 +27,4 @@
 4) [bert_mlm.ipynb](https://github.com/EugGolovanov/Zakupki/blob/main/notebooks/bert_mlm.ipynb) - обучали на кристофари/mlspace. Видеокарта A100.
 - Обучение MLM модели.
 
-5) [make-engine-model-inference.ipynb](https://github.com/EugGolovanov/Zakupki/blob/main/notebooks/make-engine-model-inference.ipynb) - инференс на кристофари/mlspace. Видеокарта A100.
+5) [make-engine-model-inference.ipynb](https://github.com/EugGolovanov/Zakupki/blob/main/notebooks/make-engine-model-inference.ipynb) - инференс модели из пункта 1 на кристофари/mlspace. Видеокарта A100.
