@@ -29,3 +29,9 @@ gdown 'https://drive.google.com/uc?id=1KYKxZCmLY6d7CW8QFNY1F44iT7cYSDxS'
 ```
 streamlit run app.py
 ```
+
+Для запуска через ngrok (команды писать в разных консолях)
+```
+python server_ngrok.py
+streamlit run --server.port 80 app.py
+```
