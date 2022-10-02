@@ -23,3 +23,6 @@
 
 3) [zakupki-catboost.ipynb](https://github.com/EugGolovanov/Zakupki/blob/main/notebooks/zakupki-catboost.ipynb)
 - Обучение catboost на эмбеддингах модели из пункта 1.
+
+4) [bert_mlm.ipynb](https://github.com/EugGolovanov/Zakupki/blob/main/notebooks/bert_mlm.ipynb)
+- Обучение MLM модели.
