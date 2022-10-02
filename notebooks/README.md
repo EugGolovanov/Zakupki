@@ -20,3 +20,5 @@
 2) [catboost_onnx_converter.py](https://github.com/EugGolovanov/Zakupki/blob/main/notebooks/catboost_onnx_converter.py)
 - Короткий код, для конвертации cbm формата модели катбуста в onnx.
 - Это придает ускорение при инференсе.
+
+3) [zakupki-catboost.ipynb](https://github.com/EugGolovanov/Zakupki/blob/main/notebooks/zakupki-catboost.ipynb)
