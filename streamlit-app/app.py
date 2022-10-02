@@ -5,6 +5,7 @@ import utils as utils
 import torch
 import faiss
 import catboost as cb
+import onnxruntime as rt
 import matplotlib.pyplot as plt
 
 import streamlit as st
@@ -42,8 +43,12 @@ def load_all():
      # сами эмбеддинги, нампай массив shape = (n_samples, d)
     index.add(embeddings) # type: ignore
 
-    cb_model = cb.CatBoostClassifier()
-    cb_model = cb_model.load_model('okpd2-cat-model-1500-lower.cbm')
+    # default catboost
+    # cb_model = cb.CatBoostClassifier()
+    # cb_model = cb_model.load_model('okpd2-cat-model-1500-lower.cbm')
+
+    # onnx catboost
+    cb_model = rt.InferenceSession('catboost_model.onnx')
 
     return countries_codes, country2code, code2country, tokenizer, bert_cls, data, index, cb_model
 
@@ -113,7 +118,7 @@ def main():
         fig = get_fig_tops(search_results['inn'])
         if fig is not None:
             figs_expander.pyplot(fig)
-        search_results.drop(['okpd2_value', 'text', 'string_dist', 'same_okpd2_code'], axis=1, inplace=True)
+        search_results.drop(['okpd2_value', 'text', 'string_dist'], axis=1, inplace=True)
         gb_main = st_agg.GridOptionsBuilder.from_dataframe(search_results)
         gb_main.configure_default_column(
             groupable=True, value=True, enableRowGroup=True, editable=False)
@@ -164,7 +169,7 @@ def main():
             """, unsafe_allow_html=True)
             recommend_results = utils.get_search_results(selected_main_row[0]['product_name'].strip(
             ).lower(), data, index=index, bert=bert_cls, tokenizer=tokenizer, cb_model=cb_model, best=False)
-            recommend_results.drop(['okpd2_value', 'text', 'string_dist', 'same_okpd2_code'], axis=1, inplace=True)
+            recommend_results.drop(['okpd2_value', 'text', 'string_dist'], axis=1, inplace=True)
             gb_rec = st_agg.GridOptionsBuilder.from_dataframe(search_results)
             gb_rec.configure_default_column(
                 groupable=True, value=True, enableRowGroup=True, editable=False)
