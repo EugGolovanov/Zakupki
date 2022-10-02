@@ -56,14 +56,18 @@ def prepare_data(data: pd.DataFrame, min_price=0.0, max_price=float('inf'), inn=
     return data
 
 
-def get_search_results(search_request: str, data: pd.DataFrame, index: faiss.IndexFlatIP, bert: BertCLS, tokenizer, cb_model: cb.CatBoostClassifier, min_price=0.0, max_price=float('inf'), inn="", okpd2_code="", countries=[], best=True) -> pd.DataFrame:
+def get_search_results(search_request: str, data: pd.DataFrame, index: faiss.IndexFlatIP, bert: BertCLS, tokenizer, cb_model, min_price=0.0, max_price=float('inf'), inn="", okpd2_code="", countries=[], best=True) -> pd.DataFrame:
     new_data = deepcopy(data)
     new_data = prepare_data(new_data, min_price=min_price, max_price=max_price,
                             inn=inn, okpd2_code=okpd2_code, countries=countries)
 
     xq = get_embeddings(bert, tokenizer, search_request)
 
-    preds = cb_model.predict(xq)
+    # default catboost preds
+    #preds = cb_model.predict(xq)
+
+    # onnnx catboost preds
+    preds = list(cb_model.run(['label'], {'features': xq}))
     faiss.normalize_L2(xq)
 
     k = 100 if best else 250
