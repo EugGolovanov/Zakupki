@@ -22,3 +22,4 @@
 - Это придает ускорение при инференсе.
 
 3) [zakupki-catboost.ipynb](https://github.com/EugGolovanov/Zakupki/blob/main/notebooks/zakupki-catboost.ipynb)
+- Обучение catboost на эмбеддингах модели из пункта 1.
