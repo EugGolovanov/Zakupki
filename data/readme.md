@@ -5,3 +5,4 @@
 !gdown 'https://drive.google.com/uc?id=1gN9KeWd0iffutcaBabg5YPN5l1dLJBM2' # clear datа\
 !gdown 'https://drive.google.com/uc?id=1Z5G4HxzjJ9RbV2gU-gn3-GmJz3W9gw9X' # bert weights\
 !gdown 'https://drive.google.com/uc?id=1F2oq3AFKwE-eWAEvMy9o4NUVQF4whn2_' # catboost weights\
+!gdown 'https://drive.google.com/uc?id=1KYKxZCmLY6d7CW8QFNY1F44iT7cYSDxS' # catboost onnx weights\
