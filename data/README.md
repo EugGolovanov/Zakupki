@@ -1,3 +1,7 @@
+Все данные хранятся на гугл диске
+
+Необходимо скачать и поместить в основную серверную директорию для коректной работы
+
 ```!gdown 'https://drive.google.com/uc?id=14LOIs_rHMtNHkb8uOaEfSoEjydFFOpgr' # main data\
 !gdown 'https://drive.google.com/uc?id=1h9SvDOcJqEN7Ee-lBSoAOCuHxVxDHD8P' #embs data\
 !gdown 'https://drive.google.com/uc?id=1MZXrSJob1xwgltAR9mEhd3vEZYgwWsKX' # okpd2\
