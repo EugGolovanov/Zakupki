@@ -1,6 +1,6 @@
 ## Как запустить локально (on Windows 11)
 
-Для начала сконируйте репозиторий
+Для начала склонируйте репозиторий
 
 ```
 git clone https://github.com/EugGolovanov/Zakupki.git
