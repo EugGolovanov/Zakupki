@@ -54,39 +54,44 @@ def load_all():
 
 
 def get_fig_price(series: pd.Series):
-    data = {"11-20": series[(series.quantile(0.11) <= series) & (series <= series.quantile(0.2))].mean(),
-            "21-30": series[(series.quantile(0.21) <= series) & (series <= series.quantile(0.3))].mean(),
-            "31-40": series[(series.quantile(0.31) <= series) & (series <= series.quantile(0.4))].mean(),
-            "41-50": series[(series.quantile(0.41) <= series) & (series <= series.quantile(0.5))].mean(),
-            "51-60": series[(series.quantile(0.51) <= series) & (series <= series.quantile(0.6))].mean(),
-            "61-70": series[(series.quantile(0.61) <= series) & (series <= series.quantile(0.7))].mean(),
-            "71-80": series[(series.quantile(0.71) <= series) & (series <= series.quantile(0.8))].mean(),
-            "81-90": series[(series.quantile(0.81) <= series) & (series <= series.quantile(0.9))].mean(), }
-    courses = list(data.keys())
-    values = list(data.values())
-    plt.style.use('dark_background')  # type: ignore
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.bar(courses, values, width=0.4)
-    ax.bar_label(ax.containers[0])  # type: ignore
-    plt.xlabel("Quantile Group")
-    plt.ylabel("Price")
-    plt.title("Распределение средней цены по квантилям")
-    plt.axhline(y=(data['11-20'] + data['81-90']) / 2,
-                linewidth=3, color='red', label="Средняя цена", ls="--")
-    plt.axhline(y=series.median(), linewidth=3, color='pink',
-                label="Медианная цена", ls="--")
-    plt.legend()
-
-    return fig
+    try: 
+        data = {"11-20": series[(series.quantile(0.11) <= series) & (series <= series.quantile(0.2))].mean(),
+                "21-30": series[(series.quantile(0.21) <= series) & (series <= series.quantile(0.3))].mean(),
+                "31-40": series[(series.quantile(0.31) <= series) & (series <= series.quantile(0.4))].mean(),
+                "41-50": series[(series.quantile(0.41) <= series) & (series <= series.quantile(0.5))].mean(),
+                "51-60": series[(series.quantile(0.51) <= series) & (series <= series.quantile(0.6))].mean(),
+                "61-70": series[(series.quantile(0.61) <= series) & (series <= series.quantile(0.7))].mean(),
+                "71-80": series[(series.quantile(0.71) <= series) & (series <= series.quantile(0.8))].mean(),
+                "81-90": series[(series.quantile(0.81) <= series) & (series <= series.quantile(0.9))].mean(), }
+        courses = list(data.keys())
+        values = list(data.values())
+        plt.style.use('dark_background')  # type: ignore
+        fig, ax = plt.subplots(figsize=(10, 5))
+        ax.bar(courses, values, width=0.4)
+        ax.bar_label(ax.containers[0])  # type: ignore
+        plt.xlabel("Quantile Group")
+        plt.ylabel("Price")
+        plt.title("Распределение средней цены по квантилям")
+        plt.axhline(y=(data['11-20'] + data['81-90']) / 2,
+                    linewidth=3, color='red', label="Средняя цена", ls="--")
+        plt.axhline(y=series.median(), linewidth=3, color='pink',
+                    label="Медианная цена", ls="--")
+        plt.legend()
+        return fig
+    except:
+        return None
 
 def get_fig_tops(series: pd.Series):
-    plt.style.use('dark_background')  # type: ignore
-    fig, ax = plt.subplots(figsize=(7, 3))
-    counts = series.value_counts()[:5]
-    counts = counts / len(series) * 100
-    counts.plot(ax = ax, kind = 'barh', xlabel = 'Процент предложений выставленных этим ИНН от общего числа')
-    ax.bar_label(ax.containers[0])  # type: ignore
-    return fig
+    try:
+        plt.style.use('dark_background')  # type: ignore
+        fig, ax = plt.subplots(figsize=(7, 3))
+        counts = series.value_counts()[:5]
+        counts = counts / len(series) * 100
+        counts.plot(ax = ax, kind = 'barh', xlabel = 'Процент предложений выставленных этим ИНН от общего числа')
+        ax.bar_label(ax.containers[0])  # type: ignore
+        return fig
+    except:
+        return None
 
 
 def main():
@@ -118,7 +123,7 @@ def main():
         fig = get_fig_tops(search_results['inn'])
         if fig is not None:
             figs_expander.pyplot(fig)
-        search_results.drop(['okpd2_value', 'text', 'string_dist'], axis=1, inplace=True)
+        search_results.drop(['okpd2_value', 'text', 'string_dist', 'same_okpd2_code'], axis=1, inplace=True)
         gb_main = st_agg.GridOptionsBuilder.from_dataframe(search_results)
         gb_main.configure_default_column(
             groupable=True, value=True, enableRowGroup=True, editable=False)
@@ -169,7 +174,7 @@ def main():
             """, unsafe_allow_html=True)
             recommend_results = utils.get_search_results(selected_main_row[0]['product_name'].strip(
             ).lower(), data, index=index, bert=bert_cls, tokenizer=tokenizer, cb_model=cb_model, best=False)
-            recommend_results.drop(['okpd2_value', 'text', 'string_dist'], axis=1, inplace=True)
+            recommend_results.drop(['okpd2_value', 'text', 'string_dist', 'same_okpd2_code'], axis=1, inplace=True)
             gb_rec = st_agg.GridOptionsBuilder.from_dataframe(search_results)
             gb_rec.configure_default_column(
                 groupable=True, value=True, enableRowGroup=True, editable=False)
