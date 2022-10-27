@@ -1,6 +1,7 @@
 from pyngrok import ngrok 
+from token import token
 import os
-os.system('ngrok authtoken 2ARsKtGKj47h7y4uXMQPrIeOinS_47Mkh6jkzNjFEJWuZYNEX')
+os.system(f'ngrok authtoken {token}')
 url = ngrok.connect(port = 8501)
 print(url)
 input()
